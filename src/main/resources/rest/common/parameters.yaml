@@ -1,0 +1,22 @@
+productId:
+  name: productId
+  schema:
+    type: integer
+  in: query
+  required: true
+  description: Product identifier
+applicationDate:
+  name: applicationDate
+  schema:
+    type: string
+    format: date-time
+  in: query
+  required: true
+  description: The application date
+priceList:
+  name: priceList
+  schema:
+    type: integer
+  in: query
+  required: true
+  description: Applicable price list identifier

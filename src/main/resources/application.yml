@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: eCommerce
+  datasource:
+    url: jdbc:h2:mem:eCommerceDb
+    driverClassName: org.h2.Driver
+    databasePlatform: org.hibernate.dialect.H2Dialect

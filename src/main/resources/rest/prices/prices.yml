@@ -1,0 +1,39 @@
+prices:
+    get:
+      summary: Get product price
+      description: Get product price for a given brand and date
+      operationId: getPrice
+      tags:
+        - Prices
+      parameters:
+        - $ref: '../common/parameters.yaml#/productId'
+        - $ref: '../common/parameters.yaml#/applicationDate'
+        - $ref: '../common/parameters.yaml#/priceList'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: './schemas.yaml#/PriceResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              example:
+                badRequest:
+                  summary: Invalid request parameters
+        404:
+          description: Not Found
+          content:
+            application/json:
+              example:
+                notFound:
+                  summary: Product not found
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              example:
+                internalServerError:
+                  summary: Internal server error
