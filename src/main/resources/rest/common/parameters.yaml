@@ -9,7 +9,7 @@ applicationDate:
   name: applicationDate
   schema:
     type: string
-    format: date-time
+    format: local-date-time
   in: query
   required: true
   description: The application date

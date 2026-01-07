@@ -1,7 +1,7 @@
 prices:
     get:
       summary: Get product price
-      description: Get product price for a given brand and date
+      description: Get product price for a given product, brand and date
       operationId: getPrice
       tags:
         - Prices

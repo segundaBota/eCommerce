@@ -8,19 +8,20 @@ import org.example.jle.ecommerce.service.PriceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @RestController
 @RequiredArgsConstructor
 public class PricesController implements PricesApi{
 
-    private PriceService priceService;
-    private RestPriceConverter restPriceConverter;
+    private final PriceService priceService;
+    private final RestPriceConverter restPriceConverter;
 
     @Override
-    public ResponseEntity<PriceResponse> getPrice(Integer productId, OffsetDateTime applicationDate, Integer priceList) {
+    public ResponseEntity<PriceResponse> getPrice(Integer productId, String applicationDate, Integer priceList) {
         return ResponseEntity.ok(
                 restPriceConverter.asPriceResponse(
-                        priceService.getProductPrice(productId, applicationDate, priceList)));
+                        priceService.getProductPrice(productId, LocalDateTime.parse(applicationDate), priceList)));
     }
 }

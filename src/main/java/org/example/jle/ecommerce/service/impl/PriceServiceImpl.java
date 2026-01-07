@@ -10,7 +10,7 @@ import org.example.jle.ecommerce.service.PriceService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Service;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -24,7 +24,7 @@ public class PriceServiceImpl implements PriceService {
     private PriceEntityToDtoConverter converter;
 
     @Override
-    public PriceResponseDTO getProductPrice(Integer productId, OffsetDateTime applicationDate, Integer priceList) {
+    public PriceResponseDTO getProductPrice(Integer productId, LocalDateTime applicationDate, Integer priceList) {
         Optional<PriceEntity> entity =
                 priceRepository.findApplicablePrice(productId, applicationDate, priceList);
         if (entity.isPresent()) {
