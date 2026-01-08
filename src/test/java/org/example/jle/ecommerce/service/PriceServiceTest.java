@@ -1,5 +1,6 @@
 package org.example.jle.ecommerce.service;
 
+import org.example.jle.ecommerce.application.exception.PriceNotFoundException;
 import org.example.jle.ecommerce.ext.domain.entity.PriceEntity;
 import org.example.jle.ecommerce.ext.repository.PriceRepository;
 import org.example.jle.ecommerce.service.impl.PriceServiceImpl;
@@ -40,7 +41,7 @@ public class PriceServiceTest {
     void whenGetProductPriceOk_thenReturnPrice() {
         when(repository.findApplicablePrice(any(), any(), any())).thenReturn(Optional.of(buildMockPrice()));
 
-        var result = service.getProductPrice(35455, LocalDateTime.now(), PRICE_LIST);
+        var result = service.getProductPrice(LocalDateTime.now(), 35455, BRAND_ID);
 
         assertEquals(PRICE, result.getPrice());
     }
@@ -49,9 +50,8 @@ public class PriceServiceTest {
     void whenGetProductPriceKo_thenThrowException() {
         when(repository.findApplicablePrice(any(), any(), any())).thenReturn(Optional.empty());
 
-        assertThrows(ServiceException.class, ()-> {
-            service.getProductPrice(35455, LocalDateTime.now(), PRICE_LIST);
-        });
+        assertThrows(PriceNotFoundException.class, ()->
+                service.getProductPrice(LocalDateTime.now(), 35455, BRAND_ID));
     }
 
     private PriceEntity buildMockPrice() {

@@ -6,9 +6,9 @@ prices:
       tags:
         - Prices
       parameters:
-        - $ref: '../common/parameters.yaml#/productId'
         - $ref: '../common/parameters.yaml#/applicationDate'
-        - $ref: '../common/parameters.yaml#/priceList'
+        - $ref: '../common/parameters.yaml#/productId'
+        - $ref: '../common/parameters.yaml#/brandId'
       responses:
         200:
           description: OK

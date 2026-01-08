@@ -5,5 +5,5 @@ import org.example.jle.ecommerce.domain.dto.price.PriceResponseDTO;
 import java.time.LocalDateTime;
 
 public interface PriceService {
-    PriceResponseDTO getProductPrice(Integer productId, LocalDateTime applicationDate, Integer priceList);
+    PriceResponseDTO getProductPrice(LocalDateTime applicationDate, Integer productId, Integer brandId);
 }

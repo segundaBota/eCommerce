@@ -16,5 +16,5 @@ public interface PriceRepository extends JpaRepository<PriceEntity, Integer> {
                 "AND :date BETWEEN start_date AND end_date " +
                 "ORDER BY priority DESC LIMIT 1",
             nativeQuery = true)
-    Optional<PriceEntity> findApplicablePrice(Integer productId, LocalDateTime date, Integer brandId);
+    Optional<PriceEntity> findApplicablePrice(LocalDateTime date, Integer productId, Integer brandId);
 }

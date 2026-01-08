@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,9 +18,9 @@ public class PricesController implements PricesApi{
     private final RestPriceConverter restPriceConverter;
 
     @Override
-    public ResponseEntity<PriceResponse> getPrice(Integer productId, String applicationDate, Integer priceList) {
+    public ResponseEntity<PriceResponse> getPrice(String applicationDate, Integer productId, Integer brandId) {
         return ResponseEntity.ok(
                 restPriceConverter.asPriceResponse(
-                        priceService.getProductPrice(productId, LocalDateTime.parse(applicationDate), priceList)));
+                        priceService.getProductPrice(LocalDateTime.parse(applicationDate), productId, brandId)));
     }
 }
