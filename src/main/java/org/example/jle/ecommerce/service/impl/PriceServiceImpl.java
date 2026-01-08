@@ -23,25 +23,25 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceResponseDTO getProductPrice(LocalDateTime applicationDate, Integer productId, Integer brandId) {
-        Optional<PriceEntity> entity =
-                priceRepository.findApplicablePrice(applicationDate, productId, brandId);
-        if (entity.isPresent()) {
-            PriceEntity priceEntity = entity.get();
-            return PriceResponseDTO.builder()
-                    .brandId(priceEntity.getBrandId())
-                    .productId(priceEntity.getProductId())
-                    .priceList(priceEntity.getPriceList())
-                    .startDate(priceEntity.getStartDate())
-                    .endDate(priceEntity.getEndDate())
-                    .priority(priceEntity.getPriority())
-                    .price(priceEntity.getPrice())
-                    .currency(priceEntity.getCurrency())
-                    .build();
-        } else{
-            log.error("No price found with given productId {} and brandId {} for the date {}",
-                    productId, brandId, applicationDate);
-            throw new PriceNotFoundException(ErrorCode.PRICE_NOT_FOUND.getDescription());
-        }
+        return priceRepository.findApplicablePrice(applicationDate, productId, brandId)
+                .map(this::toPriceResponseDTO)
+                .orElseThrow(() -> {
+                    log.error("No price found with given productId {} and brandId {} for the date {}",
+                            productId, brandId, applicationDate);
+                    return new PriceNotFoundException(ErrorCode.PRICE_NOT_FOUND.getDescription());
+                });
     }
 
+    private PriceResponseDTO toPriceResponseDTO(PriceEntity priceEntity) {
+        return PriceResponseDTO.builder()
+                .brandId(priceEntity.getBrandId())
+                .productId(priceEntity.getProductId())
+                .priceList(priceEntity.getPriceList())
+                .startDate(priceEntity.getStartDate())
+                .endDate(priceEntity.getEndDate())
+                .priority(priceEntity.getPriority())
+                .price(priceEntity.getPrice())
+                .currency(priceEntity.getCurrency())
+                .build();
+    }
 }
