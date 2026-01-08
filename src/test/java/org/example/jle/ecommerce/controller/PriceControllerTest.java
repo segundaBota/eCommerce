@@ -60,10 +60,19 @@ public class PriceControllerTest {
     }
 
     @Test
-    void whenParameterIsNoOk_thenReturnBadRequest() throws Exception {
+    void whenRequestIsWrong_thenReturnBadRequest() throws Exception {
         mockMvc.perform(get(GET_ENDPOINT)
                         .param(PARAM_DATE, DATE.toString())
                         .param("wrongProduct", PRODUCT_ID.toString())
+                        .param(PARAM_BRAND_ID, BRAND_ID.toString()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void whenParameterIsWrong_thenReturnBadRequest() throws Exception {
+        mockMvc.perform(get(GET_ENDPOINT)
+                        .param(PARAM_DATE, "wrongDate")
+                        .param(PARAM_PRODUCT_ID, PRODUCT_ID.toString())
                         .param(PARAM_BRAND_ID, BRAND_ID.toString()))
                 .andExpect(status().isBadRequest());
     }
