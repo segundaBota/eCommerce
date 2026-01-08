@@ -1,7 +1,14 @@
 package org.example.jle.ecommerce.ext.domain.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -18,15 +25,10 @@ public class PriceEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "brand_id")
     private Integer brandId;
-    @Column(name = "product_id")
     private Integer productId;
-    @Column(name = "price_list")
     private Integer priceList;
-    @Column(name = "start_date")
     private LocalDateTime startDate;
-    @Column(name = "end_date")
     private LocalDateTime endDate;
     private Integer priority;
     private Double price;

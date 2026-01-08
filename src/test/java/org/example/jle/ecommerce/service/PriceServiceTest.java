@@ -2,19 +2,21 @@ package org.example.jle.ecommerce.service;
 
 import org.example.jle.ecommerce.application.exception.PriceNotFoundException;
 import org.example.jle.ecommerce.ext.domain.entity.PriceEntity;
+import org.example.jle.ecommerce.ext.domain.entity.converter.PriceEntityToDtoConverter;
 import org.example.jle.ecommerce.ext.repository.PriceRepository;
 import org.example.jle.ecommerce.service.impl.PriceServiceImpl;
-import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -27,12 +29,15 @@ public class PriceServiceTest {
     private static final Integer PRICE_LIST = 1;
     private static final LocalDateTime START_DATE = LocalDateTime.now();
     private static final LocalDateTime END_DATE = LocalDateTime.now();
-    private static final Integer PPIORITY = 1;
+    private static final Integer PRIORITY = 1;
     private static final Double PRICE = 10.0;
     private static final String CURRENCY = "EUR";
 
     @Mock
     PriceRepository repository;
+
+    @Spy
+    PriceEntityToDtoConverter converter;
 
     @InjectMocks
     PriceServiceImpl service;
@@ -62,7 +67,7 @@ public class PriceServiceTest {
                 .priceList(PRICE_LIST)
                 .startDate(START_DATE)
                 .endDate(END_DATE)
-                .priority(PPIORITY)
+                .priority(PRIORITY)
                 .price(PRICE)
                 .currency(CURRENCY)
                 .build();

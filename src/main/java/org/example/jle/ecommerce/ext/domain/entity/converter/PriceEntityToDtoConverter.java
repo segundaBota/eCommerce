@@ -2,7 +2,9 @@ package org.example.jle.ecommerce.ext.domain.entity.converter;
 
 import org.example.jle.ecommerce.domain.dto.price.PriceResponseDTO;
 import org.example.jle.ecommerce.ext.domain.entity.PriceEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PriceEntityToDtoConverter {
 
     public PriceResponseDTO convert (PriceEntity entity){
