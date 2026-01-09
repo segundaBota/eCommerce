@@ -20,5 +20,6 @@ PriceResponse:
       format: local-date-time
       example: '2020-06-14-00.00.00'
     price:
-      type: double
+      type: number
+      format: double
       example: '100.00'
