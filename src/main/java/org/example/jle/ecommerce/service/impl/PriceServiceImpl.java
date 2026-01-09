@@ -11,6 +11,9 @@ import org.example.jle.ecommerce.service.PriceService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +25,18 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceResponseDTO getProductPrice(LocalDateTime applicationDate, Integer productId, Integer brandId) {
-        return priceRepository.findApplicablePrice(applicationDate, productId, brandId)
-                .map(converter::convert)
-                .orElseThrow(() -> {
-                    log.error("No price found with given productId {} and brandId {} for the date {}",
-                            productId, brandId, applicationDate);
-                    return new PriceNotFoundException(ErrorCode.PRICE_NOT_FOUND.getDescription());
-                });
+        return priceRepository.findApplicablePrice(applicationDate, productId, brandId).stream()
+            .map(converter::convert)
+            .max(Comparator.comparingInt(PriceResponseDTO::getPriority))
+            .orElseThrow(() -> {
+                log.error("No price found with given productId {} and brandId {} for the date {}",
+                        productId, brandId, applicationDate);
+                return new PriceNotFoundException(ErrorCode.PRICE_NOT_FOUND.getDescription());
+            });
+    }
+
+    private Optional<PriceResponseDTO> getPriceByPriority(List<PriceResponseDTO> priceResponseDTOList) {
+        return priceResponseDTOList.stream()
+                .max(Comparator.comparingInt(PriceResponseDTO::getPriority));
     }
 }
