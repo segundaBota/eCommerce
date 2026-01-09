@@ -64,3 +64,15 @@ Retrieves the valid price for a specific product and brand at a given date. If m
   "currency": "EUR"
 }
 ```
+
+
+## 🚀 Future Improvements & Next Steps
+
+To evolve this API into a more robust and production-ready service, the following enhancements are suggested:
+
+1.  **Security with Spring Security**:
+    *   Integrate **Spring Security** to secure API access.
+    *   Implement **JWT (JSON Web Tokens)** or **OAuth2** authentication to ensure only authorized clients can retrieve pricing data.
+    *   Define fine-grained access control using roles (e.g., `ROLE_USER`, `ROLE_ADMIN`).
+2.  **Caching Layer**: Implement a caching strategy (using Redis or Caffeine) to optimize performance for frequent queries on the same products and dates.
+3.  **Observability**: Add **Spring Boot Actuator** and Micrometer to monitor application health, performance metrics, and logging.
