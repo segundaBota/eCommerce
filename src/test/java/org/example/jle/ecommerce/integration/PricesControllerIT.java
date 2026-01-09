@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class PricesControllerIT {
 
-    private static final String GET_ENDPOINT = "/prices";
+    private static final String GET_ENDPOINT = "/api/ecommerce/prices";
     private static final String PARAM_DATE = "applicationDate";
     private static final String PARAM_PRODUCT_ID = "productId";
     private static final String PARAM_BRAND_ID = "brandId";
